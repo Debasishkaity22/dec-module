@@ -3,7 +3,6 @@ let low=[],medium=[],high=[];
 let allCount=0,lowCount=0,mediumCount=0,highCount=0;
 let obj={};
 let form=document.querySelector("#input-task");
-console.log(form);
 let input1=document.querySelector("#add-input");
 let input2=document.querySelector(".date-input");
 let select1=document.querySelector(".priority1");
@@ -19,9 +18,9 @@ btn1.addEventListener("click",function(e){
    addItems(obj);
    form.reset();
 })
+let itemsContainer=document.querySelector("#items-container");
 function addItems(obj){
     let deleteDiv=document.querySelector(".items");
-    let itemsContainer=document.querySelector("#items-container");
     deleteDiv.style.display="none";
     let newDiv=document.createElement("div");
     newDiv.classList.add("new-items");
@@ -47,14 +46,11 @@ function addItems(obj){
     let btnDiv=document.createElement("div");
     let labelDiv=document.createElement("div");
     labelDiv.classList.add("label-div")
-    btnDiv.classList.add("btn-div")
-    let btn2=document.createElement("button");
-    btn2.classList.add("new-btn1");
-    btn2.innerText="edit";
-    let btn3=document.createElement("button");
-    btn3.classList.add("new-btn2");
-  btn3.innerText="delete";
-  btnDiv.append(btn2,btn3);
+    btnDiv.classList.add("btn-div");
+  btnDiv.innerHTML=`
+  <button class="new-btn1" onclick="editItems(this)">edit</button>
+  <button class="new-btn2" onclick="deleteItems(this)">delete</button>
+  `;
   labelDiv.append(p3,label);
   taskDiv1.append(labelDiv,btnDiv);
   newDiv.append(taskDiv2,taskDiv1)
@@ -81,4 +77,23 @@ function allListCount(){
     low1.innerText=lowCount+" of "+allCount;
     medium1.innerText=mediumCount+" of "+allCount;
     high1.innerText=highCount+" of "+allCount;
+    let newBtn2=document.querySelector("click",function(){
+
+    })
 }
+function deleteItems(row){
+   let rowDel=row.parentNode.parentNode.parentNode;
+  rowDel.remove();
+  allCount--;
+  allListCount();
+}
+let inputParent;
+function editItems(row){
+   let parent=row.parentNode.parentNode;
+   inputParent=parent;
+   let class1=parent.firstChild.lastChild;
+   class1.removeAttribute("readonly");
+   class1.focus();
+   
+}
+
